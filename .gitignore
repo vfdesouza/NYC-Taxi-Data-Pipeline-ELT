@@ -1,5 +1,4 @@
 config/credentials
 .env
 my-datapipeline-394413-111b96604481.json
-*.cpython-310.pyc
-*.cpython-39.pyc
+__pycache__/

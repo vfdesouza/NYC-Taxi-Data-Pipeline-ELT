@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
+
 from libs.module import Module
+from libs.logger import Logger
 
 load_dotenv()
 
@@ -16,15 +18,15 @@ def main(year, month_start, month_end):
     ]
 
     func.download_and_upload_data(
+        save_path="./data_temp",
         url_base=URL_BASE,
-        path_file="",
-        taxi_type=[""],
+        taxi_type=["yellow"],
         period=period_list,
-        destination_blob_name="/",
+        destination_blob_name="NYC_YELLOW/",
     )
 
 
 if __name__ == "__main__":
-    print("Extraindo os dados da API NYC.")
+    Logger.info(message="Extraindo os dados da API NYC.")
     main(year=2022, month_start=1, month_end=12)
-    print("Extração concluída!")
+    Logger.sucess(message="Extração concluída!")
