@@ -7,8 +7,8 @@ from time import sleep
 
 load_dotenv()
 
-GOOGLE_APPLICATION_CREDENTIALS = "my-datapipeline-394413-111b96604481.json"
-BUCKET_NAME = "nyc-taxi-data-pipeline-elt"
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+BUCKET_NAME = os.getenv("BUCKET_NAME")
 
 
 class Module:
