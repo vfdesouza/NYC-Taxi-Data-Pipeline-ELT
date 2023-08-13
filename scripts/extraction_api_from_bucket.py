@@ -18,7 +18,7 @@ def main(year, month_start, month_end):
     ]
 
     func.download_and_upload_data(
-        save_path="./data_temp",
+        save_path="./data_temp/api_bucket",
         url_base=URL_BASE,
         taxi_type=["yellow"],
         period=period_list,
@@ -27,6 +27,6 @@ def main(year, month_start, month_end):
 
 
 if __name__ == "__main__":
-    Logger.info(message="Extraindo os dados da API NYC.")
+    Logger.info(message="Extraindo os dados da API NYC...")
     main(year=2022, month_start=1, month_end=12)
     Logger.sucess(message="Extração concluída!")
