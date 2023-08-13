@@ -1,5 +1,6 @@
 {{ config(
     materialized='incremental',
+    cluster_by=['payment_type'],
     unique_key=['VendorID', 'tpep_pickup_datetime'],
     partition_by={
         "field": "extract_at",
