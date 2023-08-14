@@ -1,10 +1,10 @@
 {{ config(
     materialized='incremental',
-    cluster_by=['payment_type'],
+    cluster_by=['VendorID'],
     unique_key=['VendorID', 'tpep_pickup_datetime'],
     partition_by={
-        "field": "extract_at",
-        "data_type": "date",
+        "field": "tpep_pickup_datetime",
+        "data_type": "datetime",
         "granularity": "day"
     }
 ) }}
