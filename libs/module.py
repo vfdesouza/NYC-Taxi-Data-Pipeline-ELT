@@ -184,6 +184,7 @@ class Module:
             Logger.warning(message=f"Table {table_name} does not exist. Creating...")
 
         job_config = bigquery.LoadJobConfig(
+            schema=[bigquery.SchemaField(column_partitioning, "DATETIME")],
             write_disposition="WRITE_APPEND",
             ignore_unknown_values=True,
             time_partitioning=table.time_partitioning,

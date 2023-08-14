@@ -19,12 +19,13 @@ def main(taxi_type, period_date, source_blob_name, destination_file_name):
     )
 
     df = pd.read_parquet(path=report)
+    df = df.astype(str)
 
     df["extract_at"] = datetime.now().date()
 
     func.load_table_from_dataframe_partitioning(
         table_name="raw_nyc_yellow",
-        column_partitioning="extract_at",
+        column_partitioning="tpep_pickup_datetime",
         columns_clustering=["VendorID"],
         dataframe=df,
     )
