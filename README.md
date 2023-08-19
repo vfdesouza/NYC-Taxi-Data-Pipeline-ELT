@@ -30,6 +30,6 @@ Estes dados são públicos e podem ser encontrados no link abaixo: https://www.n
 
 ## Arquitetura do Projeto
 
-![Alt text](data_pipeline_architecture.jpg)
+![Alt text](./assets/data_pipeline_architecture.jpg)
 
 ## Em construção...
