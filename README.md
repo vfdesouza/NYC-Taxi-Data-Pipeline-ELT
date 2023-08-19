@@ -28,4 +28,8 @@ Este projeto utilizará dados de viagens fornecidos pela NYC Taxi & Limousine Co
 Estes dados são públicos e podem ser encontrados no link abaixo: https://www.nyc.gov/site/tlc/index.page
 
 
+## Arquitetura do Projeto
+
+![Alt text](data_pipeline_architecture.jpg)
+
 ## Em construção...
