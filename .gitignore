@@ -2,3 +2,4 @@ config/credentials
 .env
 my-datapipeline-394413-111b96604481.json
 __pycache__/
+venv
