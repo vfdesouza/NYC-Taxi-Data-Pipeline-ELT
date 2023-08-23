@@ -1,6 +1,6 @@
 import os
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 from libs.module import Module
 from libs.logger import Logger
 
@@ -20,7 +20,7 @@ def main(year, month_start, month_end):
     func.download_and_upload_data(
         save_path="./data_temp/api_bucket",
         url_base=URL_BASE,
-        taxi_type=["yellow"],
+        types_of_taxis=["yellow"],
         period=period_list,
         destination_blob_name="NYC_YELLOW/",
     )

@@ -1,6 +1,7 @@
 import os
 import requests
 import pandas as pd
+
 from google.oauth2 import service_account
 from google.cloud.exceptions import GoogleCloudError, ClientError
 from google.api_core.exceptions import NotFound
@@ -24,31 +25,38 @@ class Module:
     def __init__(self) -> None:
         pass
 
-    def get_storage_client(self):
+    def get_storage_client(self) -> storage.Client | None:
         """Returns an instance of the Google Cloud Storage client"""
         try:
             credentials = service_account.Credentials.from_service_account_file(
                 GOOGLE_APPLICATION_CREDENTIALS
             )
+
             return storage.Client(credentials=credentials)
+
         except (GoogleAuthError, ClientError) as excep:
             Logger.warning(
                 message=f"Error launching Google Cloud Storage client instance: {excep}"
             )
 
-    def get_bigquery_client(self):
+            return None
+
+    def get_bigquery_client(self) -> bigquery.Client | None:
         """Returns an instance of the Google BigQuery client"""
         try:
             credentials = service_account.Credentials.from_service_account_file(
                 GOOGLE_APPLICATION_CREDENTIALS,
                 scopes=["https://www.googleapis.com/auth/cloud-platform"],
             )
+
+            return bigquery.Client(credentials=credentials, project=credentials.project_id)
+
         except (GoogleAuthError, ClientError) as excep:
             Logger.warning(
                 message=f"Error launching Google Bigquery client instance: {excep}"
             )
 
-        return bigquery.Client(credentials=credentials, project=credentials.project_id)
+            return None   
 
     def download_file_api(self, url: str, save_path: str) -> None:
         """Download a file from an API and save it"""
@@ -101,15 +109,15 @@ class Module:
         self,
         save_path: str,
         url_base: str,
-        taxi_type: list,
+        types_of_taxis: list,
         period: list,
         destination_blob_name: str,
     ) -> None:
         """Download and upload data for given taxi types and periods"""
-        for tt in taxi_type:
+        for taxi_type in types_of_taxis:
             for date in period:
-                url = f"{url_base}{tt}_tripdata_{date}.parquet"
-                file_name = f"{tt}_tripdata_{date}.parquet"
+                url = f"{url_base}{taxi_type}_tripdata_{date}.parquet"
+                file_name = f"{taxi_type}_tripdata_{date}.parquet"
                 self.download_file_api(url, os.path.join(save_path, file_name))
 
                 self.upload_file(
@@ -124,8 +132,8 @@ class Module:
         period_date: str,
         source_blob_name: str,
         destination_file_name: str,
-        bucket_name=BUCKET_NAME,
-    ):
+        bucket_name: str | None = BUCKET_NAME,
+    ) -> str:
         """Downloads a blob from the bucket."""
         storage_client = self.get_storage_client()
         bucket = storage_client.bucket(bucket_name)
@@ -178,7 +186,7 @@ class Module:
         table.clustering_fields = clustering_fields
 
         try:
-            existing_table = bigquery_client.get_table(table_ref)
+            bigquery_client.get_table(table_ref)
             return Logger.warning(message=f"Table {table_name} already exists.")
         except NotFound:
             Logger.warning(message=f"Table {table_name} does not exist. Creating...")
