@@ -3,3 +3,10 @@ config/credentials
 my-datapipeline-394413-111b96604481.json
 __pycache__/
 venv
+.vscode/
+cosmos-dbt.txt
+test.py
+docker-compose.yaml
+Dockerfile
+requirements.txt
+.dockerignore
