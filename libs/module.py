@@ -49,14 +49,16 @@ class Module:
                 scopes=["https://www.googleapis.com/auth/cloud-platform"],
             )
 
-            return bigquery.Client(credentials=credentials, project=credentials.project_id)
+            return bigquery.Client(
+                credentials=credentials, project=credentials.project_id
+            )
 
         except (GoogleAuthError, ClientError) as excep:
             Logger.warning(
                 message=f"Error launching Google Bigquery client instance: {excep}"
             )
 
-            return None   
+            return None
 
     def download_file_api(self, url: str, save_path: str) -> None:
         """Download a file from an API and save it"""
@@ -181,6 +183,7 @@ class Module:
         # ]
 
         # Define the table definition with partitioning and clustering options
+
         table = bigquery.Table(table_ref)  # , schema=schema)
         table.time_partitioning = time_partitioning
         table.clustering_fields = clustering_fields
@@ -191,12 +194,16 @@ class Module:
         except NotFound:
             Logger.warning(message=f"Table {table_name} does not exist. Creating...")
 
+        parquet_options = bigquery.ParquetOptions()
+        parquet_options.enable_list_inference = False
+
         job_config = bigquery.LoadJobConfig(
             schema=[bigquery.SchemaField(column_partitioning, "DATETIME")],
             write_disposition="WRITE_APPEND",
             ignore_unknown_values=True,
             time_partitioning=table.time_partitioning,
             clustering_fields=table.clustering_fields,
+            parquet_options=parquet_options,
         )
 
         job = bigquery_client.load_table_from_dataframe(
