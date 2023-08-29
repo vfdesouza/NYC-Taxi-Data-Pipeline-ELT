@@ -96,7 +96,6 @@ class Module:
                 message=f"File saved at: gs://{bucket_name}/{destination_blob_name}"
             )
 
-            # Check if the file exists before trying to remove it
             file_to_remove = os.path.join(save_path, source_file_name)
             if os.path.exists(file_to_remove):
                 os.remove(file_to_remove)

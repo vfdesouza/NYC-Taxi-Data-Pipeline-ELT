@@ -1,7 +1,6 @@
 import logging
 from colorama import Fore, Style, init
 
-# Inicializar o colorama para permitir cores em terminais
 init(autoreset=True)
 
 
