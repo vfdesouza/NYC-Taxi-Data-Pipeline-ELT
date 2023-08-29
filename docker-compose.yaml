@@ -1,0 +1,6 @@
+version: '3'
+services:
+  datapipeline:
+    image: nome-da-sua-imagem:tag
+    env_file:
+      - .env

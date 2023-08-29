@@ -1,0 +1,6 @@
+config/credentials/
+venv/
+
+.env
+.gitignore
+.vscode/
