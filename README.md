@@ -80,7 +80,7 @@ DATASET_RAW_ZONE=raw_zone
 GOOGLE_GCP_PROJECT=project-google-name
 ```
 
-8 - Recomendação: Instale o DBT localmente para testes antes de enviar a imagem docker para o docker hub:
+8 - Recomendação: Instale o DBT localmente e inicie o mesmo com o [tutorial indicado na documentação](https://docs.getdbt.com/quickstarts/bigquery?step=1) e faça alguns testes antes de enviar a imagem docker para o docker hub:
 
 Instale o [dbt-core com o adaptador do Big Query](https://docs.getdbt.com/docs/core/pip-install):
 
@@ -89,7 +89,7 @@ No seu ambiente virtual instale o dbt-bigquery:
 ```shell
 pip install dbt-bigquery
 ```
-9 - Ajuste as credenciais no nyc_dbt\profiles.yml e teste as configurações e conexões do projeto:
+9 - Ajuste as credenciais de acesso ao GCP e copie os modelos teste nos caminhos indicados (models /stg e /marts) e faça o debug para testar as configurações e conexões do projeto:
 
 Indique corretamente o caminho do arquivo de credenciais .json do google na chave keyfile do arquivo nyc_dbt\profiles.yml.
 
